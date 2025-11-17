@@ -47,10 +47,10 @@ class ScriptSDK(Plugin):
         if command.name == "debug":
             if not self.isDebug:
                 self.logger.set_level(self.logger.DEBUG)
-                isDebug = True
+                self.isDebug = True
                 sender.send_message(self.plugin_mc_prefix+"§aDebug enabled!")
             else:
-                isDebug = False
+                self.isDebug = False
                 self.logger.set_level(self.logger.INFO)
                 sender.send_message(self.plugin_mc_prefix+"§cDebug disabled!")
 
