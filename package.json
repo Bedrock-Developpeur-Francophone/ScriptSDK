@@ -1,6 +1,6 @@
 {
   "name": "scriptsdk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Use certain Endstone features directly on your add-ons. By using a JS file on your add-ons and the Endstone plugin.",
   "main": "index.js",
   "directories": {
