@@ -35,7 +35,7 @@ class ScriptSDK {
         }
     }
 
-    public async send(action: string, body: string[]): Promise<{ success: boolean, code: number, result: string } | null> {
+    public async send(action: string, body: string[]): Promise<{ success: boolean, code: number, result: string }> {
         return new Promise((resolve) => {
             
             const id = this.generateId();
@@ -43,7 +43,7 @@ class ScriptSDK {
             world.getDimension('overworld').runCommand(`scriptevent scriptsdk:${id}-${action} ${body.join(';#;')}`);
 
             this.waitingData[id] = (data: string) => {
-                const regex = /^([a-z]*)#(\d{3})#(.*)$/gm; // You're not good at regular expressions, go to -> https://regex101.com/ ;D
+                const regex = /^([a-z]*);#;(\d{3});#;(.*)$/gm; // You're not good at regular expressions, go to -> https://regex101.com/ ;D
                 let m = regex.exec(data);
                 if (m && m.length == 4) {
                     resolve({

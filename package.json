@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && robocopy lib dist\\lib *.ts /E /NP || exit 0",
+    "build": "tsc && cp -r lib/* dist/lib/",
     "buildp": "pipx run build --wheel"
   },
   "repository": {
