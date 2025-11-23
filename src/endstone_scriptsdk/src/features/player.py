@@ -24,7 +24,7 @@ class PlayerData:
                 player : Player = handler.plugin.server.get_player(message)
                 if not player:
                     return handler.response(uuid, False, 404, ['player not found']);
-                return handler.response(uuid, True, 200, [player.ping])
+                return handler.response(uuid, True, 200, [str(player.ping)])
             
             case 'getPlayerXuid':
                 '''
