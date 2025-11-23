@@ -125,7 +125,6 @@ function loadPlayer(player: Player) {
 
 world.afterEvents.playerSpawn.subscribe(async (e) => {
     const player = e.player;
-
     loadPlayer(player);
 });
 

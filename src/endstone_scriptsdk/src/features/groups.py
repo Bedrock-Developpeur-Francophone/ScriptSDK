@@ -118,7 +118,7 @@ class Group:
                     Body: groupName
                 '''
                 
-                group : Group = Group.get(group_name, handler.groups)
+                group : Group = Group.get(message, handler.groups)
                 if group is None:
                     return self.response(uuid, False, 404, ['group not found'])
                 
