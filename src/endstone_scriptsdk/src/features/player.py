@@ -1,8 +1,12 @@
 from endstone import Player
+import typing
+
+if typing.TYPE_CHECKING:
+    from endstone_scriptsdk.handler import EventHandler
 
 class PlayerData:
     @staticmethod
-    def request(handler, uuid, action, message):
+    def request(handler : "EventHandler", uuid, action, message):
         match action:
             case 'getPlayerIp':
                 '''

@@ -128,3 +128,9 @@ world.afterEvents.playerSpawn.subscribe(async (e) => {
 
     loadPlayer(player);
 });
+
+world.afterEvents.worldLoad.subscribe(async () => {
+    world.getAllPlayers().forEach((p) => {
+        loadPlayer(p);
+    });
+});
