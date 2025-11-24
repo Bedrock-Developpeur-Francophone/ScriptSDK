@@ -1,7 +1,7 @@
 # ScriptSDK
 
 [![License](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.4.0-green.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.4.1-green.svg)](package.json)
 
 Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities.
 
@@ -66,9 +66,19 @@ await safeZone.destroy();
 - `init()` → `Promise<void>`: Initialize the group on the server (must be called before using the group)
 - `addPlayer(player | playerName)` → `Promise<void>`: Add a player to the group
 - `removePlayer(player | playerName)` → `Promise<void>`: Remove a player from the group
-- `hasPlayer(player | playerName)` → boolean : Returns a boolean value indicating whether the player is in the group
+- `hasPlayer(player | playerName)` → `boolean` : Returns a boolean value indicating whether the player is in the group
 - `getPlayers()` → `Player[]`: Get all players in the group
 - `destroy()` → `Promise<void>`: Delete the group and remove all players from it
+- `toJson()` → `object`: Export group to json 
+
+### 🛡️ Group Rules
+
+**Available Rules:**
+- `GroupRule.NO_PVP` (0) - Players in the group cannot attack each other
+- `GroupRule.NO_DAMAGE` (1) - Players in the group take no damage from any source
+- `GroupRule.PVP_ONLY_GROUP` (3) - Players can only attack other players in the same group
+- `GroupRule.NO_PVP_NO_DAMAGE` (4) - Combination of NO_PVP and NO_DAMAGE rules
+- `GroupRule.NO_PVP_ONLY_GROUP` (5) - Players in the group cannot attack each other (PVP disabled within group only)
 
 ### 🎨 Boss Bar Customization
 
@@ -89,14 +99,6 @@ await safeZone.destroy();
 - `BossBarStyle.SEGMENTED_12` (3) - 12 segments
 - `BossBarStyle.SEGMENTED_20` (4) - 20 segments
 
-### 🛡️ Group Rules
-
-**Available Rules:**
-- `GroupRule.NO_PVP` (0) - Players in the group cannot attack each other
-- `GroupRule.NO_DAMAGE` (1) - Players in the group take no damage from any source
-- `GroupRule.PVP_ONLY_GROUP` (3) - Players can only attack other players in the same group
-- `GroupRule.NO_PVP_NO_DAMAGE` (4) - Combination of NO_PVP and NO_DAMAGE rules
-- `GroupRule.NO_PVP_ONLY_GROUP` (5) - Players in the group cannot attack each other (PVP disabled within group only)
 
 ## 📦 Installation
 
