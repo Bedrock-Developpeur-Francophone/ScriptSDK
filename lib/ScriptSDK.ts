@@ -36,16 +36,17 @@ declare module '@minecraft/server' {
         resetNameTagForPlayer(target: Player): Promise<void>;
 
         /**
-         * List of groups where the player is located.
-         */
-        groups: Group[];
-
-        /**
          * Get the player's ping
          */
         getPing(): Promise<number>;
     }
+
+    interface System {
+        groups: Group[];
+    }
 }
+
+system.groups = [];
 
 function loadPlayer(player: Player) {
     ScriptSDK.send('getPlayerIp', [player.name]).then((result) => {
@@ -110,8 +111,6 @@ function loadPlayer(player: Player) {
             }
         }
     }
-
-    player.groups = [];
 
     player.getPing = async () => {
         const result = await ScriptSDK.send('getPlayerPing', [player.name]);

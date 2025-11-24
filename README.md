@@ -16,6 +16,7 @@ ScriptSDK is a dual-component system:
 ## ✨ Features
 
 - /debug : To enable/disable the plugin's communication logs.
+- **system.groups** → `Group[]`: List of groups initialise
 
 ### 💫 Player Features
 
@@ -27,7 +28,6 @@ ScriptSDK is a dual-component system:
 - **player.setNameTagForPlayer(target, newName)** → `Promise<void>`: Set custom player name visible to specific players
 - **player.resetNameTagForPlayer(target)** → `Promise<void>`: Reset custom player name to default for a specific target player
 - **player.getNameTagByPlayer(target)** → `string`: Get the custom name tag that a specific player sees for this player
-- **player.groups** → `Group[]`: Array of groups the player belongs to
 
 ### 🛡️ Group System
 
@@ -64,8 +64,9 @@ await safeZone.destroy();
 
 **Group Methods:**
 - `init()` → `Promise<void>`: Initialize the group on the server (must be called before using the group)
-- `addPlayer(player)` → `Promise<void>`: Add a player to the group
-- `removePlayer(player)` → `Promise<void>`: Remove a player from the group
+- `addPlayer(player | playerName)` → `Promise<void>`: Add a player to the group
+- `removePlayer(player | playerName)` → `Promise<void>`: Remove a player from the group
+- `hasPlayer(player | playerName)` → boolean : Returns a boolean value indicating whether the player is in the group
 - `getPlayers()` → `Player[]`: Get all players in the group
 - `destroy()` → `Promise<void>`: Delete the group and remove all players from it
 

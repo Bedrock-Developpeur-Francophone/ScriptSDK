@@ -1,10 +1,10 @@
-import { Player, SetBannerDetailsFunction } from "@minecraft/server";
+import { Player, SetBannerDetailsFunction, system } from "@minecraft/server";
 import { GroupRule } from "./enums";
 import ScriptSDK from './sdk';
 import { prefix } from "../ScriptSDK";
 
 export class Group {
-    private players: Player[] = [];
+    private players: string[] = [];
     is_destroy: boolean = false;
     is_created: boolean = false;
     name: string;
@@ -20,6 +20,7 @@ export class Group {
             await ScriptSDK.send('createGroup', [this.name, `${this.rule}`]).then((e) => {
                 if (e.success) {
                     this.is_created = true;
+                    system.groups.push(this);
                 } else {
                     this.is_destroy = true;
                     throw new Error(prefix + 'Error creating the group '+this.name+' !');
@@ -28,36 +29,40 @@ export class Group {
         }
     }
 
-    async addPlayer(player: Player) {
+    async addPlayer(player: Player | string) {
+
+        const playerName = player instanceof Player ? player.name : player;
+        
         if(this.is_destroy) {
             throw new Error(prefix+'the group is destroyed');
         } else if (!this.is_created) {
             throw new Error(prefix+'the group is not initialized');
         }
 
-        if (!this.players.includes(player)) {
-            const result = await ScriptSDK.send('addPlayerToGroup', [this.name, player.name]);
+        if (!this.players.includes(playerName)) {
+            const result = await ScriptSDK.send('addPlayerToGroup', [this.name, playerName]);
             if (result.success) {
-                player.groups.push(this);
-                this.players.push(player);
+
+                this.players.push(playerName);
             } else {
                 throw new Error(prefix + 'Error adding a player to the group '+this.name);
             }
         }
     }
 
-    async removePlayer(player: Player) {
+    async removePlayer(player: Player | string) {
+        const playerName = player instanceof Player ? player.name : player;
+
         if(this.is_destroy) {
             throw new Error(prefix+'the group is destroyed');
         } else if (!this.is_created) {
             throw new Error(prefix+'the group is not initialized');
         }
 
-        if(this.players.includes(player)){
-            const result = await ScriptSDK.send('removePlayerToGroup', [this.name, player.name]);
+        if(this.players.includes(playerName)){
+            const result = await ScriptSDK.send('removePlayerToGroup', [this.name, playerName]);
             if(result.success) {
-                this.players = this.players.filter(p => p != player);
-                player.groups = player.groups.filter(g => g != this);
+                this.players = this.players.filter(p => p != playerName);
             }else{
                 throw new Error(prefix + 'Error removing a player to the group '+this.name);
             }
@@ -74,6 +79,11 @@ export class Group {
         return this.players;
     }
 
+    hasPlayer(player: Player | string) {
+        const playerName = player instanceof Player ? player.name : player;
+        return this.players.includes(playerName);
+    }
+
     async destroy() {
         if(this.is_destroy) {
             throw new Error(prefix+'the group is destroyed');
@@ -84,7 +94,7 @@ export class Group {
         const result = await ScriptSDK.send('deleteGroup', [this.name]);
         if(result.success) {
             this.is_destroy = true;
-            this.players.forEach((p) => p.groups = p.groups.filter(g => g != this));
+            system.groups = system.groups.filter((g) => g != this);
         }else{
             throw new Error(prefix + 'Error deleting the group '+this.name);
         }
