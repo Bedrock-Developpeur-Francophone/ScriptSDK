@@ -35,6 +35,8 @@ class ScriptSDK {
         }
     }
 
+    
+
     public async send(action: string, body: string[]): Promise<{ success: boolean, code: number, result: string }> {
         return new Promise((resolve) => {
             

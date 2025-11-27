@@ -4,7 +4,7 @@ from endstone.event import event_handler, ScriptMessageEvent, ActorDamageEvent
 from endstone.boss import BossBar
 from endstone.command import CommandSenderWrapper
 from colorama import Fore
-import typing
+import typing, re
 from endstone_scriptsdk.src.features.groups import Group
 from endstone_scriptsdk.src.features.bossBar import BossBar
 from endstone_scriptsdk.src.features.clientName import ClientName
@@ -24,6 +24,9 @@ class EventHandler:
         self.logger = plugin.logger
         plugin.register_events(self)
         plugin.logger.info('EventHandler listening...')
+
+    def deserializer(self, message: str, args : int):
+        return re.match(r'^'+(';#;'.join(['(.*)'] * args))+'$', message, re.DOTALL)
 
     def send_script_event(self, uuid, body):
         sender = CommandSenderWrapper(self.plugin.server.command_sender)

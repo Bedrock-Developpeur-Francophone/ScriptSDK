@@ -1,15 +1,18 @@
-import re 
 from endstone_scriptsdk.src.utils import sendCustomNameToPlayerForPlayer
+import typing
+
+if typing.TYPE_CHECKING:
+    from endstone_scriptsdk.handler import EventHandler
 
 class ClientName:
     @staticmethod
-    def request(handler, uuid, action, message):
+    def request(handler : "EventHandler", uuid, action, message):
         match action:
             case 'setPlayerNameForPlayer':
                 '''
                     Body: targetName;#;playerName;#;newPlayerName
                 '''
-                result = re.match(r'^(.*);#;(.*);#;(.*)$', message, re.DOTALL)
+                result = handler.deserializer(message, 3)
                 target = handler.plugin.server.get_player(result[1])
                 if not target:
                     return handler.response(uuid, False, 404, ['target not found']);
@@ -30,7 +33,7 @@ class ClientName:
                 '''
                     Body: targetName;#;playerName
                 '''
-                result = re.match(r'^(.*);#;(.*)$', message)
+                result = handler.deserializer(message, 2)
                 target = handler.plugin.server.get_player(result[1])
                 if not target:
                     return handler.response(uuid, False, 404, ['target not found']);

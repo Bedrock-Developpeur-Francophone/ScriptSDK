@@ -1,7 +1,10 @@
 from endstone.event import ActorDamageEvent
 from endstone.plugin import Plugin
 from endstone import Player
-import re
+import typing
+
+if typing.TYPE_CHECKING:
+    from endstone_scriptsdk.handler import EventHandler
 
 class Rule:
     NO_PVP = 0
@@ -61,13 +64,13 @@ class Group:
                         event.cancel()
 
     @staticmethod
-    def request(handler, uuid, action, message):
+    def request(handler : "EventHandler", uuid, action, message):
         match action:
             case 'createGroup':
                 '''
                     Body: name;#;rule
                 '''
-                result = re.match(r'^(.*);#;(\d)$', message)
+                result = handler.deserializer(message, 2)
                 name = result[1]
                 rule = int(result[2])
 
@@ -83,7 +86,7 @@ class Group:
                 '''
                     Body: groupName;#;playerName
                 '''
-                result = re.match(r'^(.*);#;(.*)$', message)
+                result = handler.deserializer(message, 2)
                 group_name = result[1]
                 player_name = result[2]
 
@@ -100,7 +103,7 @@ class Group:
                 '''
                     Body: groupName;#;playerName
                 '''
-                result = re.match(r'^(.*);#;(.*)$', message)
+                result = handler.deserializer(message, 2)
                 group_name = result[1]
                 player_name = result[2]
 
