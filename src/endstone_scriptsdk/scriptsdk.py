@@ -1,8 +1,9 @@
 from endstone.plugin import Plugin
 from colorama import Fore
 from endstone.event import event_handler, ActorDamageEvent
-from endstone_scriptsdk.handler import EventHandler
-from endstone_scriptsdk.src.utils import sendCustomNameToPlayerForPlayer
+from .handler import EventHandler
+from .src.config import Config
+from .src.utils import sendCustomNameToPlayerForPlayer
 
 class ScriptSDK(Plugin):
     api_version = "0.10"
@@ -30,10 +31,12 @@ class ScriptSDK(Plugin):
     }
 
     isDebug = False
+    config : Config = None
 
     def on_load(self):
         self.logger.set_level(self.logger.INFO)
         self.logger.info(f'Loaded !')
+        self.config = Config(self)
     
     def on_enable(self):
         self.register_events(self)
