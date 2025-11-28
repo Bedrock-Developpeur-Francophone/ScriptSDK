@@ -4,11 +4,15 @@ from endstone.event import event_handler, ScriptMessageEvent, ActorDamageEvent
 from endstone.boss import BossBar
 from endstone.command import CommandSenderWrapper
 from colorama import Fore
-import json, re
+import typing, re
 from endstone_scriptsdk.src.features.groups import Group
 from endstone_scriptsdk.src.features.bossBar import BossBar
 from endstone_scriptsdk.src.features.clientName import ClientName
 from endstone_scriptsdk.src.features.player import PlayerData
+from endstone_scriptsdk.src.features.server import ServerData
+
+if typing.TYPE_CHECKING:
+    from endstone_scriptsdk.scriptsdk import ScriptSDK
 
 class EventHandler:
 
@@ -16,11 +20,14 @@ class EventHandler:
     groups : list[Group] = []
     nameTagCache : dict[str, dict[str, str]] = {}
 
-    def __init__(self, plugin : Plugin):
+    def __init__(self, plugin : "ScriptSDK"):
         self.plugin = plugin
         self.logger = plugin.logger
         plugin.register_events(self)
         plugin.logger.info('EventHandler listening...')
+
+    def deserializer(self, message: str, args : int):
+        return re.match(r'^'+(';#;'.join(['(.*)'] * args))+'$', message, re.DOTALL)
 
     def send_script_event(self, uuid, body):
         sender = CommandSenderWrapper(self.plugin.server.command_sender)
@@ -49,6 +56,7 @@ class EventHandler:
                 BossBar.request(self, uuid, action, message)
                 ClientName.request(self, uuid, action, message)
                 PlayerData.request(self, uuid, action, message)
+                ServerData.request(self, uuid, action, message)
 
             except Exception as e:
                 self.response(uuid, False, 500, [str(e)])

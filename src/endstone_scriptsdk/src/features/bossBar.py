@@ -1,4 +1,3 @@
-import re
 from endstone.boss import BarColor, BarStyle
 import typing
 
@@ -13,7 +12,7 @@ class BossBar:
                 '''
                     body: barName;#;color;#;style;#;pourcent;#;playerName
                 '''
-                result = re.match(r"^(.*);#;(\d);#;(\d);#;(\d{1,3});#;(.*)$", message, re.DOTALL)
+                result = handler.deserializer(message, 5)
                 title = result[1]
                 color_code = int(result[2])
                 style_code = int(result[3])
