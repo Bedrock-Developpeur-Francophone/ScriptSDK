@@ -60,6 +60,10 @@ class ScriptSDK {
 
             this.waitingData[id] = (data: string) => {
                 let m = this.deserializer(data, args);
+                if(m == null) {
+                    m = this.deserializer(data);
+                    args = 1;
+                }
                 if (m && m.length >= 4) {
                     resolve({
                         success: m[1] == 'true',
