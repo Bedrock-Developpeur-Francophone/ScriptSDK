@@ -23,10 +23,10 @@ class Config:
             os.mkdir(self._folder)
         if not os.path.exists(self._file):
             self.config = self._get_default()
-            self.save()
+            self._save()
             plugin.logger.info('Config loaded and created !')
         else:
-            self.load()
+            self._load()
             plugin.logger.info('Config loaded !')
 
     def _get_default(self):
@@ -55,7 +55,7 @@ class Config:
                     return False
         return True
 
-    def load(self):
+    def _load(self):
         with open(self._file, 'r') as file:
             self.config = json.load(file)
             
@@ -72,6 +72,6 @@ class Config:
             self.postgres_password = self.config['database']['postgres_password']
             self.postgres_database = self.config['database']['postgres_database']
 
-    def save(self):
+    def _save(self):
         with open(self._file, 'w+') as file:
             json.dump(self.config, file, indent=5)
