@@ -38,6 +38,6 @@ class EntityData:
                 if result[2] in handler.nameTagCache and target.name in handler.nameTagCache[result[2]]:
                     del handler.nameTagCache[result[2]][target.name]
 
-                sendCustomNameToPlayerForEntity(target, result[2], result[3])
+                sendCustomNameToPlayerForEntity(target, int(result[2]), result[3])
                 
                 return handler.response(uuid, True, 200, ['name reset'])

@@ -53,7 +53,7 @@ class ScriptSDK(Plugin):
                 target = self.server.get_player(target_name)
                 if target == None:
                     continue
-                sendCustomNameToPlayerForEntity(target, runtime_id, newName)
+                sendCustomNameToPlayerForEntity(target, int(runtime_id), newName)
     
     def on_command(self, sender, command, args):
 
