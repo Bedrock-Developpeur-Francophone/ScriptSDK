@@ -2,9 +2,9 @@ from endstone import Player
 from endstone_scriptsdk.src.libs.packets import SetActorDataPacket
 from bedrock_protocol.packets import MinecraftPacketIds
 
-def sendCustomNameToPlayerForPlayer(viewver : Player, target_id : int, name: str):
+def sendCustomNameToPlayerForEntity(viewver : Player, target_id : int, name: str):
     packet = SetActorDataPacket(
-        target_id,
+        int(target_id),
         [{'id': 4, 'type': 4, 'value': name}]
     ).serialize()
     viewver.send_packet(MinecraftPacketIds.SetActorData, packet)

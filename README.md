@@ -1,7 +1,7 @@
 # ScriptSDK
 
 [![License](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.6.0-green.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.8.0-green.svg)](package.json)
 
 Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities.
 
@@ -30,9 +30,12 @@ ScriptSDK is a dual-component system:
 - **player.getPing()** → `Promise<number>`: Get the player's current ping/latency in milliseconds
 - **player.setBossBar(title, color, style, percent)** → `Promise<void>`: Create and assign a boss bar to a player with customizable progress percentage (0-100)
 - **player.resetBossBar()** → `Promise<void>`: Reset boss bar to a player.
-- **player.setNameTagForPlayer(target, newName)** → `Promise<void>`: Set custom player name visible to specific players
-- **player.resetNameTagForPlayer(target)** → `Promise<void>`: Reset custom player name to default for a specific target player
-- **player.getNameTagByPlayer(target)** → `string`: Get the custom name tag that a specific player sees for this player
+
+### 💫 Entity Features
+
+- **entity.setNameTagForPlayer(target, newName)** → `Promise<void>`: Set custom entity name visible to specific players
+- **entity.resetNameTagForPlayer(target)** → `Promise<void>`: Reset custom entity name to default for a specific target player
+- **entity.getNameTagByPlayer(target)** → `string`: Get the custom name tag that a specific entity sees for this player
 
 ### 🛡️ Group System
 

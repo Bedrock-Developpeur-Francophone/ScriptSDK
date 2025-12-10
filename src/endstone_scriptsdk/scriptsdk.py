@@ -1,9 +1,8 @@
 from endstone.plugin import Plugin
 from colorama import Fore
 from endstone.event import event_handler, ActorDamageEvent
-from .handler import EventHandler
-from .src.config import Config
-from .src.utils import sendCustomNameToPlayerForPlayer
+from endstone_scriptsdk.handler import EventHandler
+from endstone_scriptsdk.src.utils import sendCustomNameToPlayerForEntity
 
 class ScriptSDK(Plugin):
     api_version = "0.10"
@@ -51,15 +50,16 @@ class ScriptSDK(Plugin):
 
     def clock(self):
 
-        for player_name, views in self.handler.nameTagCache.items():
+        for id, views in self.handler.nameTagCache.items():
             for target_name, newName in views.items():
-                player = self.server.get_player(player_name)
                 target = self.server.get_player(target_name)
-                if player == None:
-                    del self.handler.nameTagCache[player_name]
                 if target == None:
                     continue
-                sendCustomNameToPlayerForPlayer(target, player.runtime_id, newName)
+                for entity in self.server.level.actors:
+                    if entity.id == int(id):
+                        sendCustomNameToPlayerForEntity(target, int(entity.runtime_id), newName)
+                        break
+                
     
     def on_command(self, sender, command, args):
 

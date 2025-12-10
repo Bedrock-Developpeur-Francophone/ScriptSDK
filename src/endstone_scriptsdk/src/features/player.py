@@ -21,3 +21,28 @@ class PlayerData:
                     return handler.response(uuid, True, 200, [player.xuid])
                 case 'getPlayerOS':
                     return handler.response(uuid, True, 200, [player.device_os])
+        
+        match action:
+            case 'sendToast':
+                '''
+                    Body: playerName;#;title;#;content
+                '''
+                result = handler.deserializer(message, 3)
+                player : Player = handler.plugin.server.get_player(result[1])
+                if not player:
+                    return handler.response(uuid, False, 404, ['player not found']);
+
+                player.send_toast(result[2], result[3])
+                return handler.response(uuid, True, 200, [])
+            
+            case 'sendPopup':
+                '''
+                    Body: playerName
+                '''
+                result = handler.deserializer(message, 2)
+                player : Player = handler.plugin.server.get_player(result[1])
+                if not player:
+                    return handler.response(uuid, False, 404, ['player not found']);
+
+                player.send_popup(result[2])
+                return handler.response(uuid, True, 200, [])

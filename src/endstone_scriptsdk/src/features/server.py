@@ -19,7 +19,7 @@ class ServerData:
                 def ping():
                     try:
                         ping = ping_bedrock(ip, port)
-                        handler.plugin.server.scheduler.run_task(handler.plugin, lambda: handler.response(uuid, True, 200, [str(ping.ping), str(ping.edition), str(ping.gameMode), str(ping.mapName), str(ping.name), str(ping.players.online), str(ping.players.max), str(ping.serverId), str(ping.version)]))
+                        handler.plugin.server.scheduler.run_task(handler.plugin, lambda: handler.response(uuid, True, 200, [str(ping.ping), str(ping.edition), str(ping.gameMode), str(ping.mapName), str(ping.name), str(ping.players.online), str(ping.players.max), str(ping.serverId), str(ping.version.minecraftVersion)]))
                     except Exception as e:
                         err_msg = str(e)
                         handler.plugin.server.scheduler.run_task(

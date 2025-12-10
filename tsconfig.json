@@ -20,7 +20,7 @@
   "include": [
     "lib/**/*.ts",
     "lib/**/*.d.ts"
-  ],
+, "lib/src/caches.ts", "lib/src/enums.ts", "lib/src/exceptions.ts", "lib/src/groups.ts", "lib/src/sdk.ts"  ],
   "ts-node": {
     "files": true
   },

@@ -5,11 +5,11 @@ from endstone.boss import BossBar
 from endstone.command import CommandSenderWrapper
 from colorama import Fore
 import typing, re
-from .src.features.groups import Group
-from .src.features.bossBar import BossBar
-from .src.features.clientName import ClientName
-from .src.features.player import PlayerData
-from .src.features.server import ServerData
+from endstone_scriptsdk.src.features.groups import Group
+from endstone_scriptsdk.src.features.bossBar import BossBar
+from endstone_scriptsdk.src.features.entity import EntityData
+from endstone_scriptsdk.src.features.player import PlayerData
+from endstone_scriptsdk.src.features.server import ServerData
 
 if typing.TYPE_CHECKING:
     from endstone_scriptsdk.scriptsdk import ScriptSDK
@@ -54,7 +54,7 @@ class EventHandler:
                 
                 Group.request(self, uuid, action, message)
                 BossBar.request(self, uuid, action, message)
-                ClientName.request(self, uuid, action, message)
+                EntityData.request(self, uuid, action, message)
                 PlayerData.request(self, uuid, action, message)
                 ServerData.request(self, uuid, action, message)
 
