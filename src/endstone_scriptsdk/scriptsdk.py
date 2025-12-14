@@ -57,6 +57,10 @@ class ScriptSDK(Plugin):
                     if entity.id == int(id):
                         sendCustomNameToPlayerForEntity(target, int(entity.runtime_id), newName)
                         break
+                for entity in self.server.online_players:
+                    if entity.id == int(id):
+                        sendCustomNameToPlayerForEntity(target, int(entity.runtime_id), newName)
+                        break
                 
     
     def on_command(self, sender, command, args):
