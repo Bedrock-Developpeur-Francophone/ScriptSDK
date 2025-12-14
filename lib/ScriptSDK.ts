@@ -208,6 +208,7 @@ function loadEntity(entity : Entity) {
 
 world.afterEvents.playerSpawn.subscribe(async (e) => {
     loadPlayer(e.player);
+    loadEntity(e.player);
 });
 
 world.afterEvents.entitySpawn.subscribe(async (e) => {
