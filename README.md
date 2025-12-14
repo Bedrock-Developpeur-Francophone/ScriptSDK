@@ -1,7 +1,7 @@
 # ScriptSDK
 
 [![License](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.8.0-green.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.8.1-green.svg)](package.json)
 
 Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities.
 
