@@ -29,3 +29,5 @@ class ServerData:
                 
                 threading.Thread(target=ping).start()
                 return None
+            case 'getServerUsage':
+                pass
