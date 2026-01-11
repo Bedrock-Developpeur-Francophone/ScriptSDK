@@ -10,6 +10,7 @@ from endstone_scriptsdk.src.features.bossBar import BossBar
 from endstone_scriptsdk.src.features.entity import EntityData
 from endstone_scriptsdk.src.features.player import PlayerData
 from endstone_scriptsdk.src.features.server import ServerData
+from endstone_scriptsdk.src.features.discord import Discord
 
 if typing.TYPE_CHECKING:
     from endstone_scriptsdk.scriptsdk import ScriptSDK
@@ -57,6 +58,7 @@ class EventHandler:
                 EntityData.request(self, uuid, action, message)
                 PlayerData.request(self, uuid, action, message)
                 ServerData.request(self, uuid, action, message)
+                Discord.request(self, uuid, action, message)
 
             except Exception as e:
                 self.response(uuid, False, 500, [str(e)])

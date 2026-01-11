@@ -22,6 +22,28 @@ export type ServerInfo = {
     version: string;
 }
 
+export type DiscordAllowedMentions = {
+    parse?: string[];
+    roles?: string[];
+    users?: string[];
+    replied_user?: boolean;
+}
+
+export type DiscordMessageOptions = {
+    username?: string;
+    avatarUrl?: string;
+    tts?: boolean;
+    allowedMentions?: DiscordAllowedMentions;
+}
+
+export type DiscordEmbed = {
+    [key: string]: any;
+}
+
+export type DiscordWebhookPayload = {
+    [key: string]: any;
+}
+
 declare module '@minecraft/server' {
     interface Player {
 
@@ -79,6 +101,21 @@ declare module '@minecraft/server' {
          *  
          */
         getInfoFromExternalServer(host: string, port: number): Promise<ServerInfo>;
+
+        /**
+         * Send a Discord webhook message.
+         */
+        sendDiscordMessage(webhookId: string, content: string, options?: DiscordMessageOptions): Promise<void>;
+
+        /**
+         * Send Discord embeds via webhook.
+         */
+        sendDiscordEmbed(webhookId: string, embed: DiscordEmbed | DiscordEmbed[], options?: DiscordMessageOptions & { content?: string }): Promise<void>;
+
+        /**
+         * Send a raw Discord webhook payload.
+         */
+        sendDiscordPayload(webhookId: string, payload: DiscordWebhookPayload): Promise<void>;
     }
 }
 
@@ -104,6 +141,40 @@ system.getInfoFromExternalServer = async (host, port) => {
         throw new Error(prefix + result?.result[0]);
     }
 
+}
+
+function toDiscordOptionStrings(options?: DiscordMessageOptions) {
+    const username = options?.username ?? '';
+    const avatarUrl = options?.avatarUrl ?? '';
+    const tts = options?.tts ? 'true' : '';
+    const allowedMentions = options?.allowedMentions ? JSON.stringify(options.allowedMentions) : '';
+    return { username, avatarUrl, tts, allowedMentions };
+}
+
+system.sendDiscordMessage = async (webhookId: string, content: string, options?: DiscordMessageOptions) => {
+    const { username, avatarUrl, tts, allowedMentions } = toDiscordOptionStrings(options);
+    const result = await ScriptSDK.send('discordSendMessage', [webhookId, content, username, avatarUrl, tts, allowedMentions]);
+    if (!result?.success) {
+        throw new Error(prefix + result?.result[0]);
+    }
+}
+
+system.sendDiscordEmbed = async (webhookId: string, embed: DiscordEmbed | DiscordEmbed[], options?: DiscordMessageOptions & { content?: string }) => {
+    const embedsJson = JSON.stringify(Array.isArray(embed) ? embed : [embed]);
+    const { username, avatarUrl, tts, allowedMentions } = toDiscordOptionStrings(options);
+    const content = options?.content ?? '';
+    const result = await ScriptSDK.send('discordSendEmbed', [webhookId, embedsJson, content, username, avatarUrl, tts, allowedMentions]);
+    if (!result?.success) {
+        throw new Error(prefix + result?.result[0]);
+    }
+}
+
+system.sendDiscordPayload = async (webhookId: string, payload: DiscordWebhookPayload) => {
+    const payloadJson = JSON.stringify(payload);
+    const result = await ScriptSDK.send('discordSendPayload', [webhookId, payloadJson]);
+    if (!result?.success) {
+        throw new Error(prefix + result?.result[0]);
+    }
 }
 
 function loadPlayer(player: Player) {
