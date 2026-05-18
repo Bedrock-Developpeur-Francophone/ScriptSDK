@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "thedrewen-scriptsdk"
+name = "endstone-scriptsdk"
 version = "1.8.2"
 description = "Use certain Endstone features directly on your add-ons. By using a JS file on your add-ons and the Endstone plugin."
 dependencies = [
