@@ -51,7 +51,6 @@ class ScriptSDK(Plugin):
             self.task.cancel()
 
     def clock(self):
-
         for id, views in self.handler.nameTagCache.items():
             for target_name, newName in views.items():
                 target = self.server.get_player(target_name)
