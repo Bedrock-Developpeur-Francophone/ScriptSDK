@@ -1,7 +1,7 @@
 # ScriptSDK
 
 [![License](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.8.3-green.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.8.2-green.svg)](package.json)
 
 Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities.
 
@@ -127,7 +127,7 @@ scripts/
 
 ### For Server Administrators (Endstone Plugin)
 
-1. Download the latest plugin wheel (`.whl`) from [GitHub Releases](https://github.com/Bedrock-Developpeur-Francophone/ScriptSDK/releases)
+1. Download the latest plugin wheel (`.whl`) from [EndGit](https://endgit.dev/plugins/scriptsdk)
 2. Place the `.whl` file in your Endstone server's `plugins` folder
 3. Restart your server
 
