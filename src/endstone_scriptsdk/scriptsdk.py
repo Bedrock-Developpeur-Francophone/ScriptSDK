@@ -5,7 +5,7 @@ from endstone_scriptsdk.handler import EventHandler
 from endstone_scriptsdk.src.utils import sendCustomNameToPlayerForEntity
 
 class ScriptSDK(Plugin):
-    api_version = "0.10"
+    api_version = "0.11"
     authors = ["TheDreWen"]
     description = "Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities."
     website = "https://discord.gg/kQU9p4ZHbR"
