@@ -5,8 +5,6 @@
 
 Use certain Endstone features directly in your Bedrock add-ons through a JavaScript API. ScriptSDK bridges the gap between Minecraft Bedrock add-ons and Endstone plugin capabilities.
 
-⚠️ **Plugin currently under development.**
-
 ## 📋 Overview
 
 ScriptSDK is a dual-component system:

@@ -24,7 +24,6 @@ class EventHandler:
         self.plugin = plugin
         self.logger = plugin.logger
         plugin.register_events(self)
-        plugin.logger.info('EventHandler listening...')
 
     def deserializer(self, message: str, args : int):
         return re.match(r'^'+(';#;'.join(['(.*)'] * args))+'$', message, re.DOTALL)

@@ -17,33 +17,38 @@ class ScriptSDK(Plugin):
         "debug" : {
             "description" : "Enable/Disable debugging (Console)",
             "usages" : ["/debug"],
-            "permissions" : ["debug.command.default"]
+            "permissions" : ["scriptsdk.debug.command"]
         }
     }
 
     permissions = {
-        "debug.command.default": {
-            "description": "OP Permission",
+        "scriptsdk.debug.command": {
+            "description": "Allow use of debug command",
             "default" : "op"
         }
     }
-
-    isDebug = False
+    
+    def __init__(self):
+        
+        self.task = None
+        self.isDebug = False
+        
+        super().__init__()
 
     def on_load(self):
         self.logger.set_level(self.logger.INFO)
-        self.logger.info(f'Loaded !')
     
     def on_enable(self):
         self.register_events(self)
         self.handler = EventHandler(self)
 
-        self.server.scheduler.run_task(self, self.clock, 0, 1)
+        self.task = self.server.scheduler.run_task(self, self.clock, 0, 1)
     
     def on_disable(self):
         for player, bar in self.handler.bossBars.items():
             bar.remove_all()
-        self.logger.info(f'Unloaded !')
+        if self.task:
+            self.task.cancel()
 
     def clock(self):
 
